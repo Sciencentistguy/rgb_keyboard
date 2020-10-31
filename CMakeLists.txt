@@ -5,16 +5,18 @@ project(rgb_keyboard)
 add_executable(
         rgb_keyboard
             rgb_keyboard.cpp
-            data.cpp
-            macro.cpp
-            fileio.cpp
-            getters.cpp
-            getters.cpp
-            helpers.cpp
-            readers.cpp
-            setters.cpp
-            writers.cpp
-            print_help.cpp
-            constructor.cpp
-            print_keycodes.cpp
+            include/data.cpp
+            include/macro.cpp
+            include/fileio.cpp
+            include/getters.cpp
+            include/getters.cpp
+            include/helpers.cpp
+            include/readers.cpp
+            include/setters.cpp
+            include/writers.cpp
+            include/print_help.cpp
+            include/constructor.cpp
+            include/print_keycodes.cpp
     )
+
+target_link_libraries(rgb_keyboard usb-1.0)
