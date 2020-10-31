@@ -28,8 +28,8 @@
 #include <libusb-1.0/libusb.h>
 #include <getopt.h>
 
-#include "include/rgb_keyboard.h"
-#include "include/print_help.h"
+#include "rgb_keyboard.h"
+#include "print_help.h"
 
 int main( int argc, char **argv ){
 	
