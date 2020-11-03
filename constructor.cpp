@@ -3,10 +3,10 @@
 // constructor
 rgb_keyboard::keyboard::keyboard() {
     // default settings
-    _direction.fill(d_undefined);
-    _mode.fill(m_fixed);
-    _variant.fill(v_undefined);
-    _speed.fill(1);
-    _profile = 1;
-    _active_profile = 1;
+    direction.fill(directions::undefined);
+    mode.fill(modes::fixed);
+    variant.fill(mode_variants::undefined);
+    speed.fill(1);
+    profile = 1;
+    active_profile = 1;
 }

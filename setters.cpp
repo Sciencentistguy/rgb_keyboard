@@ -1,119 +1,95 @@
 #include "rgb_keyboard.h"
 
-// setter functions
-
-int rgb_keyboard::keyboard::set_ajazzak33_compatibility(bool compatibility) {
-    _ajazzak33_compatibility = compatibility;
+void rgb_keyboard::keyboard::set_ajazzak33_compatibility(bool compatibility) {
+    this->ajazzak33Compatibility = compatibility;
 
     if (compatibility) {
-        _keyboard_pid = _keyboard_pid_ajazzak33;      // different PID
-        _brightness_max = _brightness_max_ajazzak33;  // different maximum brightness
+        keyboard_pid = keyboard_pid_ajazzak33;      // different PID
+        brightness_max = brightness_max_ajazzak33;  // different maximum brightness
     } else {
-        _keyboard_pid = _keyboard_pid_others;
-        _brightness_max = _brightness_max_others;
-    }
-
-    return 0;
-}
-
-int rgb_keyboard::keyboard::set_mode(mode Mode) {
-    _mode[_profile - 1] = Mode;
-    return 0;
-}
-
-int rgb_keyboard::keyboard::set_direction(direction Direction) {
-    _direction[_profile - 1] = Direction;
-    return 0;
-}
-
-int rgb_keyboard::keyboard::set_speed(int Speed) {
-    if (Speed >= _speed_min && Speed <= _speed_max) {
-        _speed[_profile - 1] = Speed;
-        return 0;
-    } else {
-        return 1;
+        keyboard_pid = keyboard_pid_others;
+        brightness_max = brightness_max_others;
     }
 }
 
-int rgb_keyboard::keyboard::set_brightness(int Brightness) {
-    if (Brightness >= _brightness_min && Brightness <= _brightness_max) {
-        _brightness[_profile - 1] = Brightness;
-        return 0;
+void rgb_keyboard::keyboard::set_mode(modes mode) {
+    this->mode[profile - 1] = mode;
+}
+
+void rgb_keyboard::keyboard::set_direction(directions direction) {
+    this->direction[profile - 1] = direction;
+}
+
+void rgb_keyboard::keyboard::set_speed(int speed) {
+    if (speed >= speed_min && speed <= speed_max) {
+        this->speed[profile - 1] = speed;
     } else {
-        return 1;
+        throw std::runtime_error("Speed not in valid range.");
     }
 }
 
-int rgb_keyboard::keyboard::set_color(uint8_t Color_r, uint8_t Color_g, uint8_t Color_b) {
-    _color_r[_profile - 1] = Color_r;
-    _color_g[_profile - 1] = Color_g;
-    _color_b[_profile - 1] = Color_b;
-    return 0;
+void rgb_keyboard::keyboard::set_brightness(int brightness) {
+    if (brightness >= brightness_min && brightness <= brightness_max) {
+        this->brightness[profile - 1] = brightness;
+    } else {
+        throw std::runtime_error("Brightness not in valid range.");
+    }
 }
 
-int rgb_keyboard::keyboard::set_rainbow(bool Rainbow) {
-    _rainbow[_profile - 1] = Rainbow;
-    return 0;
+void rgb_keyboard::keyboard::set_color(uint8_t color_r, uint8_t color_g, uint8_t color_b) {
+    this->color_r[profile - 1] = color_r;
+    this->color_g[profile - 1] = color_g;
+    this->color_b[profile - 1] = color_b;
 }
 
-int rgb_keyboard::keyboard::set_variant(mode_variant Variant) {
-    _variant[_profile - 1] = Variant;
-    return 0;
+void rgb_keyboard::keyboard::set_rainbow(bool rainbow) {
+    this->rainbow[profile - 1] = rainbow;
 }
 
-int rgb_keyboard::keyboard::keyboard::set_custom_keys(std::string Keys) {
-    std::string value1 = "";
-    std::string value2 = "";
-    uint8_t val_r = 0, val_g = 0, val_b = 0;
-    std::array<uint8_t, 3> val_rgb;
-    std::size_t position1 = 0;
-    std::size_t position2 = 0;
+void rgb_keyboard::keyboard::set_variant(mode_variants variant) {
+    this->variant[profile - 1] = variant;
+}
 
-    // process string
-    while ((position1 = Keys.find("=")) != std::string::npos) {
-        position2 = Keys.find(";");
+void rgb_keyboard::keyboard::keyboard::set_custom_keys(std::string keys) {
+    std::size_t position1;
+
+    while ((position1 = keys.find('=')) != std::string::npos) {
+        std::size_t position2 = keys.find(';');
         if (position2 != std::string::npos) {
-            value1 = Keys.substr(0, position1);
-            value2 = Keys.substr(position1 + 1, position2 - position1 - 1);
-            Keys.erase(0, position2 + 1);
+            auto value1 = keys.substr(0, position1);
+            auto value2 = keys.substr(position1 + 1, position2 - position1 - 1);
+            keys.erase(0, position2 + 1);
 
             // store values in map
             if (value2.length() == 6) {
-                val_r = stoi(value2.substr(0, 2), 0, 16);
-                val_g = stoi(value2.substr(2, 2), 0, 16);
-                val_b = stoi(value2.substr(4, 2), 0, 16);
-                val_rgb = {val_r, val_g, val_b};
-                _key_colors[_profile - 1][value1] = val_rgb;
+                uint8_t val_r = stoi(value2.substr(0, 2), nullptr, 16);
+                uint8_t val_g = stoi(value2.substr(2, 2), nullptr, 16);
+                uint8_t val_b = stoi(value2.substr(4, 2), nullptr, 16);
+                std::array<uint8_t, 3> val_rgb = {val_r, val_g, val_b};
+                key_colors[profile - 1][value1] = val_rgb;
             }
         } else {
             break;
         }
     }
-
-    return 0;
 }
 
-int rgb_keyboard::keyboard::set_report_rate(report_rate Report_rate) {
-    _report_rate[_profile - 1] = Report_rate;
-    return 0;
+void rgb_keyboard::keyboard::set_report_rate(report_rates report_rate) {
+    this->report_rate[profile - 1] = report_rate;
 }
 
-int rgb_keyboard::keyboard::set_profile(int profile) {
-    _profile = profile;
-    return 0;
+void rgb_keyboard::keyboard::set_profile(int profile) {
+    this->profile = profile;
 }
 
-int rgb_keyboard::keyboard::set_active_profile(int profile) {
-    _active_profile = profile;
-    return 0;
+void rgb_keyboard::keyboard::set_active_profile(int profile) {
+    active_profile = profile;
 }
 
-int rgb_keyboard::keyboard::set_detach_kernel_driver(bool detach_kernel_driver) {
-    _detach_kernel_driver = detach_kernel_driver;
-    return 0;
+void rgb_keyboard::keyboard::set_detach_kernel_driver(bool detach_kernel_driver) {
+    this->detach_kernel_driver = detach_kernel_driver;
 }
 
-int rgb_keyboard::keyboard::set_open_interface_0(bool open_interface_0) {
-    _open_interface_0 = open_interface_0;
-    return 0;
+void rgb_keyboard::keyboard::set_open_interface_0(bool open_interface_0) {
+    this->open_interface_0 = open_interface_0;
 }

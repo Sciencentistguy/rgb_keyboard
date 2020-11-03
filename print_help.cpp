@@ -3,48 +3,48 @@
 #include <iostream>
 
 void print_help() {
-    std::cout << "This software controls the RGB lighting on some "
-                 "keyboards.\n";
-    std::cout << "Licensed under the GNU GPL version 3 or later.\n\n";
-    std::cout << "Options:\n";
-    std::cout << "\t-h --help\t\tDisplays this message\n";
-    std::cout << "\t-L --list-keys=arg\tList valid keynames (arg: led, map, option)\n";
+    std::cout << R"(This software controls the RGB lighting on some keyboards.
+Licensed under the GNU GPL version 3 or later.
 
-    std::cout << "\n\t-p --profile=arg\tSet profile to which the settings are applied (1-3)\n";
-    std::cout << "\t-a --active=arg\t\tSet currently active profile (1-3)\n";
+Options:;
+    -h --help                   Displays this message
+    -L --list-keys=arg          List valid keynames (arg: led, map, option)
 
-    std::cout << "\n\t-c --color=color\t\tSets color of the current animation\n";
-    std::cout << "\t-b --brightness=brightness\tSets brightness of the current animation.\n"
-                 "\t\tInteger from 0 to 9 (0-5 for AjazzAK33).\n";
-    std::cout << "\t-s --speed=speed\t\tSets speed of the current animation.\n"
-                 "\t\tInteger from 0 to 3.\n";
-    std::cout << "\t-d --direction=direction\tSets direction of the current animation.\n"
-                 "\t\t\"left\", \"right\", \"up\", \"down\", \"inwards\", \"outwards\".\n\n";
+    -p --profile=arg            Set profile to which the settings are applied (1-3)
+    -a --active=arg             Set currently active profile (1-3)
 
-    std::cout << "\t-l --leds=arg\tSets the led mode (pattern), valid values are:\n";
-    std::cout << "\t\tfixed, sine, rain, waterfall, vortex, swirl, breathing, breathing-color,\n";
-    std::cout << "\t\treactive-ripple, reactive-single, reactive-horizontal, reactive-color,\n";
-    std::cout << "\t\thorizontal-wave, vertical-wave, diagonal-wave, pulse, hurricane, ripple, custom, off\n";
+    -c --color=color            Sets color of the current animation
+    -b --brightness=brightness  Sets brightness of the current animation.
+                            Integer from 0 to 9 (0-5 for AjazzAK33).
+    -s --speed=speed            Sets speed of the current animation.
+                            Integer from 0 to 3.
+    -d --direction=direction    Sets direction of the current animation.
+                            "left", "right", "up", "down", "inwards", "outwards".
 
-    std::cout << "\t-v --variant=arg\tSets the variant of the reactive color mode, valid values are\n";
-    std::cout << "\t\tred, yellow, green, blue\n";
+    -l --leds=arg               Sets the led mode (pattern), valid values are:
+                            "fixed", "sine", "rain", "waterfall", "vortex", "swirl", "breathing", "breathing-color",
+                            "reactive-ripple", "reactive-single", "reactive-horizontal", "reactive-color", "horizontal-wave",
+                            "vertical-wave", "diagonal-wave", "pulse", "hurricane", "ripple", "custom", "off"
 
-    std::cout << "\n\t-P --custom-pattern=file\tSets pattern in custom mode\n";
-    std::cout << "\t-K --custom-keys=keys\t\tSets pattern in custom mode\n";
+    -v --variant=arg            Sets the variant of the reactive color mode, valid values are:
+                            "red", "yellow", "green", "blue"
 
-    std::cout << "\n\t-R --report-rate=rate\tSets USB report rate (125, 250, 500, 1000) Hz\n";
+    -P --custom-pattern=file    Sets pattern in custom mode
+    -K --custom-keys=keys       Sets pattern in custom mode
 
-    std::cout << "\n\t-M --keymap=file\tLoad keymap from specified file\n";
+    -R --report-rate=rate       Sets USB report rate (125, 250, 500, 1000) Hz
 
-    std::cout << "\n\t-r --read\tRead and print stored settings from the keyboard (experimental)\n";
+    -M --keymap=file            Load keymap from specified file
 
-    std::cout << "\n\t-B --bus=number\t\tSpecify USB bus id, must be used with --device\n";
-    std::cout << "\t-D --device=number\tSpecify USB device number, must be used with --bus\n";
-    std::cout << "\t-k --kernel-driver\tDon't try to detach the kernel driver, required on some systems\n";
-    std::cout << "\t-I --interface0\t\tDon't open usb interface 0\n";
+    -r --read                   Read and print stored settings from the keyboard (experimental)
 
-    std::cout << "\n\t-A --ajazzak33\tEnable experimental support for the AjazzAK33\n";
+    -B --bus=number             Specify USB bus id, must be used with --device
+    -D --device=number          Specify USB device number, must be used with --bus
+    -k --kernel-driver          Don't try to detach the kernel driver, required on some systems
+    -I --interface0             Don't open usb interface 0
 
-    std::cout << "\nColors need to be specified in hexadecimal without "
-                 "any prefix (rrggbb).\n\"multi\" can also be used to create a rainbow effect.\n\n";
+    -A --ajazzak33              Enable experimental support for the AjazzAK33
+
+Colors need to be specified in hexadecimal without any prefix (rrggbb).
+"multi" can also be used to create a rainbow effect.)";
 }

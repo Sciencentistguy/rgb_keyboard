@@ -33,7 +33,7 @@ int rgb_keyboard::keyboard::load_custom(std::string File) {
                     val_g = stoi(value2.substr(2, 2), 0, 16);
                     val_b = stoi(value2.substr(4, 2), 0, 16);
                     val_rgb = {val_r, val_g, val_b};
-                    _key_colors[_profile - 1][value1] = val_rgb;
+                    key_colors[profile - 1][value1] = val_rgb;
                 }
             }
         }
@@ -74,8 +74,8 @@ int rgb_keyboard::keyboard::load_keymap(std::string File) {
         if (current_section == "keymap") {
             // key=value ?
             if (std::regex_match(line, std::regex("[[:print:]]+=[[:print:]]+"))) {
-                _keymap[_profile - 1].emplace(std::regex_replace(line, std::regex("=[[:print:]]+"), ""),
-                                              std::regex_replace(line, std::regex("[[:print:]]+="), ""));
+                keymap[profile - 1].emplace(std::regex_replace(line, std::regex("=[[:print:]]+"), ""),
+                                            std::regex_replace(line, std::regex("[[:print:]]+="), ""));
             }
 
             // is section a macro definition ?
@@ -87,7 +87,7 @@ int rgb_keyboard::keyboard::load_keymap(std::string File) {
             // number of repeats ?
             if (std::regex_match(line, std::regex("repeat=[0-9]+"))) {
                 uint8_t repeats = std::stoi(std::regex_replace(line, std::regex("repeat="), ""));
-                _macros.at(macronumber).set_repeats(repeats);
+                macros.at(macronumber).set_repeats(repeats);
                 continue;
             }
 
@@ -114,7 +114,7 @@ int rgb_keyboard::keyboard::load_keymap(std::string File) {
 
             // check for range of macronumber, store macro command
             if (macronumber <= 100 && macronumber >= 1)
-                _macros.at(macronumber).append_action(type, key, delay);
+                macros.at(macronumber).append_action(type, key, delay);
         }
     }
 

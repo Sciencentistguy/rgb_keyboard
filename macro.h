@@ -6,63 +6,61 @@
 #include <string>
 
 namespace rgb_keyboard {
-    class macro;
-}
 
-/**
- * This class represents an individual macro.
- *
- * A macro consists of a sequence of key up/down actions with their
- * respective delays and a number of times the sequence should be repeated
- *
- */
-class rgb_keyboard::macro {
- public:
-    /// Type of macro action: key up or key down
-    enum action_type { t_up, t_down };
-
-    /// The maximum amount of actions in a macro, TODO!
-    static const unsigned int max_actions = 10;
-    /// The maximum delay value
-    static const unsigned int max_delay = 40000;
-
-    /// Reset macro to default values
-    void clear();
-
-    /** Append an action
-     * \return 0 if successful, 1 if unsuccessful
+    /**
+     * This class represents an individual macro.
+     *
+     * A macro consists of a sequence of key up/down actions with their
+     * respective delays and a number of times the sequence should be repeated
+     *
      */
-    int append_action(action_type type, std::string key, unsigned int delay);
+    class macro {
+     public:
+        /// Type of macro action: key up or key down
+        enum action_type { t_up, t_down };
 
-    /** Get an action
-     * \param number The number of the action to get
-     * \return 0 if successful, 1 if unsuccessful
-     */
-    int get_action(unsigned int number, action_type& type, std::string& key, unsigned int& delay);
+        /// The maximum amount of actions in a macro, TODO!
+        static const unsigned int max_actions = 10;
+        /// The maximum delay value
+        static const unsigned int max_delay = 40000;
 
-    /// Get the number of actions
-    unsigned int get_number_of_actions();
+        /// Reset macro to default values
+        void clear();
 
-    /** Set the number of repeats
-     * 0 will be interpreted as 1
-     */
-    void set_repeats(uint8_t repeats);
+        /** Append an action
+         * \return 0 if successful, 1 if unsuccessful
+         */
+        int append_action(action_type type, std::string key, unsigned int delay);
 
-    /// Get the number of repeats
-    uint8_t get_repeats();
+        /** Get an action
+         * \param number The number of the action to get
+         * \return 0 if successful, 1 if unsuccessful
+         */
+        int get_action(unsigned int number, action_type& type, std::string& key, unsigned int& delay);
 
- private:
-    /// The number of repeats for this macro
-    uint8_t _repeats = 1;
-    /// The number of actions for this macro
-    unsigned int _num_actions = 0;
+        /// Get the number of actions
+        unsigned int get_number_of_actions();
 
-    /// The action type for all actions
-    std::array<action_type, max_actions> _actions;
-    /// The key for all actions
-    std::array<std::string, max_actions> _keys;
-    /// The delay for all actions
-    std::array<unsigned int, max_actions> _delays;
-};
+        /** Set the number of repeats
+         * 0 will be interpreted as 1
+         */
+        void set_repeats(uint8_t repeats);
 
+        /// Get the number of repeats
+        uint8_t get_repeats();
+
+     private:
+        /// The number of repeats for this macro
+        uint8_t _repeats = 1;
+        /// The number of actions for this macro
+        unsigned int _num_actions = 0;
+
+        /// The action type for all actions
+        std::array<action_type, max_actions> _actions;
+        /// The key for all actions
+        std::array<std::string, max_actions> _keys;
+        /// The delay for all actions
+        std::array<unsigned int, max_actions> _delays;
+    };
+}  // namespace rgb_keyboard
 #endif
